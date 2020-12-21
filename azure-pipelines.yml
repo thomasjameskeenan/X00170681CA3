@@ -15,3 +15,10 @@ variables:
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'Sonar Cloud'
+    organization: 'x00170681'
+    scannerMode: 'MSBuild'
+    projectKey: 'X00170681_BMICalculator'
+    projectName: 'BMICalculator'
