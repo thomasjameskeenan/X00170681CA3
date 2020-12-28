@@ -7,7 +7,7 @@ trigger:
 - '*'
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'Win-2016'
 
 variables:
   buildConfiguration: 'Release'
