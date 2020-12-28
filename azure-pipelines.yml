@@ -7,7 +7,7 @@ trigger:
 - '*'
 
 pool:
-  vmImage: 'Win-2016'
+  vmImage: 'Windows-2016'
 
 variables:
   buildConfiguration: 'Release'
