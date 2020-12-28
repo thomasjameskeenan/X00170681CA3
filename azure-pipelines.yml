@@ -29,3 +29,7 @@ steps:
     scannerMode: 'MSBuild'
     projectKey: 'X00170681_BMICalculator'
     projectName: 'BMICalculator'
+- task: Npm@1
+  displayName: 'Run npm install'
+  inputs:
+   verbose: false
