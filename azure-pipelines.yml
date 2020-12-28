@@ -17,6 +17,11 @@ variables:
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
+- task: UseDotNet@2
+  displayName: 'Use .NET Core SDK 5.0.101'
+  inputs:
+    packageType: sdk
+    version: 5.0.101
 - task: SonarCloudPrepare@1
   inputs:
     SonarCloud: 'Sonar Cloud'
