@@ -1,0 +1,47 @@
+# ASP.NET Core
+# Build and test ASP.NET Core projects targeting .NET Core.
+# Add steps that run tests, create a NuGet package, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- '*'
+
+pool:
+  vmImage: 'Ubuntu-18.04'
+  demands:
+  - npm
+
+variables:
+  buildConfiguration: 'Release'
+  wwwrootDir: 'BMICalculator/BMICalculator.Web/wwwroot'
+  dotnetSdkVersion: '3.1.300'
+
+steps:
+- script: dotnet build --configuration $(buildConfiguration)
+  displayName: 'dotnet build $(buildConfiguration)'
+##- task: UseDotNet@2
+ ## displayName: 'Use .NET Core SDK 2.0.0'
+  ##inputs:
+   ## packageType: sdk
+    ##version: 2.0.0
+steps:
+- task: UseDotNet@2
+  displayName: 'Use .NET Core SDK $(dotnetSdkVersion)'
+  inputs:
+    version: '$(dotnetSdkVersion)'
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'Sonar Cloud'
+    organization: 'x00170681'
+    scannerMode: 'MSBuild'
+    projectKey: 'X00170681_BMICalculator'
+    projectName: 'BMICalculator'
+- task: Npm@1
+  displayName: 'Run npm install'
+  inputs:
+   verbose: false
+##- task: DotNetCoreCLI@2
+  ##displayName: 'Restore project dependencies'
+  ##inputs:
+    ##command: 'restore'
+    ##projects: '**/*.csproj'
