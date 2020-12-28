@@ -14,7 +14,7 @@ pool:
 variables:
   buildConfiguration: 'Release'
   wwwrootDir: 'BMICalculator/BMICalculator.Web/wwwroot'
-  dotnetSdkVersion: '3.1.300'
+  dotnetSdkVersion: '2.0.0'
 
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
