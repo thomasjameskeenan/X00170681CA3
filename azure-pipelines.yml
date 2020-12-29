@@ -33,8 +33,9 @@ steps:
     packageType: sdk
     version: 5.x
     installationPath: $(Agent.ToolsDirectory)/dotnet
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
+
+#- script: dotnet build --configuration $(buildConfiguration)
+ # displayName: 'dotnet build $(buildConfiguration)'
 
 #- task: UseDotNet@2
  # displayName: 'Use .NET Core SDK 2.0.000'
