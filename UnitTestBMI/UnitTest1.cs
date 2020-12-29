@@ -32,5 +32,63 @@ namespace BMIUnitTest
 			BMI bmi = new BMI() { WeightStones = 45, WeightPounds = 0, HeightFeet = 6, HeightInches = 2 };
 			Assert.AreEqual(bmi.BMICategory, BMICategory.Obese);
 		}
+				[TestMethod]
+		public void BMInfectionRisk_IntUnderWeightRange_Under70_LowRiskReturn()
+		{
+			BMI bmi = new BMI() { WeightStones = 7, WeightPounds = 0, HeightFeet = 6, HeightInches = 2 };
+			int age =301;
+			Assert.AreEqual(bmi.infectionRiskLevel, InfectionRiskLevel.Low);
+		}
+		[TestMethod]
+		public void BMInfectionRisk_IntUnderWeightRange_Over70_HighRiskReturn()
+		{
+			BMI bmi = new BMI() { WeightStones = 7, WeightPounds = 0, HeightFeet = 6, HeightInches = 2 };
+			int age = 71;
+			Assert.AreEqual(bmi.infectionRiskLevel, InfectionRiskLevel.Low);
+		}
+		[TestMethod]
+		public void BMInfectionRisk_IntNormalWeightRange_Under70_LowRiskReturn()
+		{
+			BMI bmi = new BMI() { WeightStones = 12, WeightPounds = 0, HeightFeet = 6, HeightInches = 2 };
+			int age = 30;
+			Assert.AreEqual(bmi.infectionRiskLevel, InfectionRiskLevel.Low);
+		}
+
+		[TestMethod]
+		public void BMInfectionRisk_IntNormalWeightRange_AgeOver70_HighRiskReturn()
+		{
+			BMI bmi = new BMI() { WeightStones = 12, WeightPounds = 0, HeightFeet = 6, HeightInches = 2 };
+			int age = 71;
+			Assert.AreEqual(bmi.infectionRiskLevel, InfectionRiskLevel.Low);
+		}
+
+		[TestMethod]
+		public void BMInfectionRisk_IntOverWeightRange_AgeUnder70_HighRiskReturn()
+		{
+			BMI bmi = new BMI() { WeightStones = 14, WeightPounds = 0, HeightFeet = 6, HeightInches = 2 };
+			int age = 30;
+			Assert.AreEqual(bmi.infectionRiskLevel, InfectionRiskLevel.High);
+		}
+		[TestMethod]
+		public void BMInfectionRisk_IntOverWeightRange_AgeOver70_HighRiskReturn()
+		{
+			BMI bmi = new BMI() { WeightStones = 14, WeightPounds = 0, HeightFeet = 6, HeightInches = 2 };
+			int age = 71;
+			Assert.AreEqual(bmi.infectionRiskLevel, InfectionRiskLevel.High);
+		}
+		[TestMethod]
+		public void BMInfectionRisk_IntObeseRange_AgeUnder70_HighRiskReturn()
+		{
+			BMI bmi = new BMI() { WeightStones = 45, WeightPounds = 0, HeightFeet = 6, HeightInches = 2 };
+			int age = 30;
+			Assert.AreEqual(bmi.infectionRiskLevel, InfectionRiskLevel.High);
+		}
+		[TestMethod]
+		public void BMInfectionRisk_IntObeseRange_AgeOver70_HighRiskReturn()
+		{
+			BMI bmi = new BMI() { WeightStones = 45, WeightPounds = 0, HeightFeet = 6, HeightInches = 2 };
+			int age = 71; 
+			Assert.AreEqual(bmi.infectionRiskLevel, InfectionRiskLevel.High);
+		}
 	}
 }
