@@ -33,7 +33,7 @@ steps:
   displayName: 'Use .NET Core SDK 2.0.000'
   inputs:
     packageType: sdk
-    version: 2.0.000
+    version: '2.0.0'
 
 ##- task: UseDotNet@2
     ##inputs:
