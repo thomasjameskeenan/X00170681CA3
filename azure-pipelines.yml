@@ -16,7 +16,7 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
   wwwrootDir: 'BMICalculator/BMICalculator.Web/wwwroot'
-  ##dotnetSdkVersion: '2.0.0'
+  ###dotnetSdkVersion: '2.0.0'
 
 steps:
 - task: NuGetToolInstaller@0
