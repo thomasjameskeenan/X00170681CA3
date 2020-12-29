@@ -26,6 +26,13 @@ steps:
   #  restoreSolution: '$(solution)'
 
 
+
+- task: UseDotNet@2
+  displayName: 'Use .NET Core sdk'
+  inputs:
+    packageType: sdk
+    version: 5.x
+    installationPath: $(Agent.ToolsDirectory)/dotnet
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
 
@@ -35,12 +42,7 @@ steps:
    # packageType: sdk
     #version: '2.0.0'
 
-- task: UseDotNet@2
-  displayName: 'Use .NET Core sdk'
-  inputs:
-    packageType: sdk
-    version: 5.x
-    installationPath: $(Agent.ToolsDirectory)/dotnet
+
 
 ##- task: UseDotNet@2
     ##inputs:
