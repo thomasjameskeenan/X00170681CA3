@@ -8,8 +8,8 @@ trigger:
 
 pool:
   vmImage: 'VS2017-Win2016'
-  demands:
-  - npm
+  ##demands:
+  ##- npm
 
 variables:
   buildConfiguration: 'Release'
