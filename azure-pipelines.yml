@@ -66,12 +66,6 @@ steps:
     projectKey: 'X00170681_BMICalculator'
     projectName: 'BMICalculator'
 
-#- task: VSBuild@1
- # inputs: 
-  #  solution: '$(solution)'
-   # platform: '$(buildPlatform)'
-    #configuration: '$(buildConfiguration)'
-
 - task: Npm@1
   displayName: 'Run npm install'
   inputs:
@@ -82,13 +76,12 @@ steps:
   inputs:
     command: 'restore'
     projects: '**/*.csproj'
-
-- task: DotNetCoreCLI@2
-  displayName: 'Build the project - Release'
-  inputs:
-    command: 'build'
-    arguments: '--no-restore --configuration Release'
-    projects: '**/*.csproj'
+  
+- task: VSBuild@1
+  inputs: 
+    solution: '$(solution)'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
 
 #- task: DotNetCoreCLI@2
  # displayName: Build
