@@ -33,6 +33,11 @@
                 <span asp-validation-for="BMI.HeightInches" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="BMI.AgeYears" class="control-label"></label>
+                <input asp-for="BMI.AgeYears" class="form-control" />
+                <span asp-validation-for="BMI.AgeYears" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Calculate" class="btn btn-default" />
             </div>
             @if (Request.Method == "POST")
@@ -45,6 +50,10 @@
                     @Html.DisplayNameFor(m => m.BMI.BMICategory)
                     @Html.DisplayFor(m => m.BMI.BMICategory)
                 </div>
+                <div>
+                    @Html.DisplayNameFor(m => m.BMI.infectionRiskLevel)
+                    @Html.DisplayFor(m => m.BMI.infectionRiskLevel)
+                </div>
             }
         </form>
     </div>
@@ -55,4 +64,3 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-
