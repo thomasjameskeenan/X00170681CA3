@@ -12,6 +12,8 @@ pool:
   ##- npm
 
 variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
   wwwrootDir: 'BMICalculator/BMICalculator.Web/wwwroot'
   dotnetSdkVersion: '2.0.0'
