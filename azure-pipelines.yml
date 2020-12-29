@@ -19,9 +19,9 @@ variables:
   dotnetSdkVersion: '2.0.0'
 
 steps:
--task: NuGetToolInstaller@0
+- task: NuGetToolInstaller@0
 
--task: NuGetCommand@2
+- task: NuGetCommand@2
   inputs:
   restoreSolution: '$(Solution)'
 
