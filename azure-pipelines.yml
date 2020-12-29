@@ -59,11 +59,11 @@ steps:
     projectKey: 'X00170681_BMICalculator'
     projectName: 'BMICalculator'
 
-- task: VSBuild@1
-  inputs: 
-    solution: '$(solution)'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+#- task: VSBuild@1
+ # inputs: 
+  #  solution: '$(solution)'
+   # platform: '$(buildPlatform)'
+    #configuration: '$(buildConfiguration)'
 
 - task: Npm@1
   displayName: 'Run npm install'
