@@ -19,12 +19,12 @@ variables:
   dotnetSdkVersion: '2.0.0'
 
 steps:
--task: NuGetToolInstaller@0
+##-task: NuGetToolInstaller@0
 
--task: NuGetCommand@2
-  inputs:
-  restoreSolution: '$(Solution)'
-  
+##-task: NuGetCommand@2
+  ##inputs:
+  ##restoreSolution: '$(Solution)'
+
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
 ##- task: UseDotNet@2
