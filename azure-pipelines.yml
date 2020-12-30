@@ -27,7 +27,7 @@ stages:
     #wwwrootDir: 'BMICalculator.thomas.keenan.Web/wwwroot'
     
     steps:
-    - task: NuGetToolInstaller@0'
+    - task: NuGetToolInstaller@0
 
 
     - task: SonarCloudPrepare@1
