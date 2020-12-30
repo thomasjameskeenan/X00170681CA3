@@ -7,18 +7,24 @@
 trigger:
 - '*'
 
-pool:
-  vmImage: 'VS2017-Win2016'
-  ##demands:
-  ##- npm
-
 variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  wwwrootDir: 'BMICalculator/BMICalculator.Web/wwwroot'
-  ###dotnetSdkVersion: '2.0.0'
+  
+ 
+stages:
+- stage: 'Build'
+  displayName: 'Build the web application'
+  jobs: 
+  - job: 'Build'
+    displayName: 'Build Job'
 
+pool:
+  vmImage: 'VS2017-Win2016'
+
+variables:
+wwwrootDir: 'BMICalculator/BMICalculator.Web/wwwroot'
 steps:
 - task: NuGetToolInstaller@0
 
