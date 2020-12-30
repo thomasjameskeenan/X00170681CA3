@@ -11,6 +11,7 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  wwwrootDir: 'BMICalculator.thomas.keenan.Web/wwwroot'
   
  
 stages:
@@ -19,116 +20,72 @@ stages:
   jobs: 
   - job: 'Build'
     displayName: 'Build Job'
+    pool:
+        vmImage: 'VS2017-Win2016'
 
-pool:
-  vmImage: 'VS2017-Win2016'
-
-variables:
-wwwrootDir: 'BMICalculator/BMICalculator.Web/wwwroot'
-steps:
-- task: NuGetToolInstaller@0
-
-#- task: NuGetCommand@2
-  #inputs:
-  #  restoreSolution: '$(solution)'
-
-#- task: UseDotNet@2
- # displayName: 'Use .NET Core sdk'
-  #inputs:
-   # packageType: sdk
-    #version: 5.x
-    #installationPath: $(Agent.ToolsDirectory)/dotnet
-
-#- script: dotnet build --configuration $(buildConfiguration)
- # displayName: 'dotnet build $(buildConfiguration)'
-
-#- task: UseDotNet@2
- # displayName: 'Use .NET Core SDK 2.0.000'
-  #inputs:
-   # packageType: sdk
-    #version: '2.0.0'
+    #variables: 
+    #wwwrootDir: 'BMICalculator.thomas.keenan.Web/wwwroot'
+    
+    steps:
+    - task: NuGetToolInstaller@0'
 
 
+    - task: SonarCloudPrepare@1
+      inputs:
+        SonarCloud: 'Sonar Cloud'
+        organization: 'x00170681'
+        scannerMode: 'MSBuild'
+        projectKey: 'X00170681_BMICalculator'
+        projectName: 'BMICalculator'
 
-##- task: UseDotNet@2
-    ##inputs:
-     ## version: '2.0.0'
-      ##packageType: runtime
+    - task: Npm@1
+      displayName: 'Run npm install'
+      inputs:
+        verbose: false
 
-##- task: UseDotNet@2
- ## inputs:
-    ##version: '3.1.300'
-    ##includePreviewVersions: true # Required for preview versions
-
-##- task: UseDotNet@2
-    ##displayName: 'Use .NET Core SDK $(dotnetSdkVersion)'
-    ##inputs:
-    ##version: '$(dotnetSdkVersion)'
-
-
-- task: SonarCloudPrepare@1
-  inputs:
-    SonarCloud: 'Sonar Cloud'
-    organization: 'x00170681'
-    scannerMode: 'MSBuild'
-    projectKey: 'X00170681_BMICalculator'
-    projectName: 'BMICalculator'
-
-- task: Npm@1
-  displayName: 'Run npm install'
-  inputs:
-   verbose: false
-
-- task: DotNetCoreCLI@2
-  displayName: 'Restore project dependencies'
-  inputs:
-    command: 'restore'
-    projects: '**/*.csproj'
+    - task: DotNetCoreCLI@2
+      displayName: 'Restore project dependencies'
+      inputs:
+        command: 'restore'
+        projects: '**/*.csproj'
   
-- task: VSBuild@1
-  inputs: 
-    solution: '$(solution)'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    - task: VSBuild@1
+      inputs: 
+        solution: '$(solution)'
+        platform: '$(buildPlatform)'
+        configuration: '$(buildConfiguration)'
 
-#- task: DotNetCoreCLI@2
- # displayName: Build
-  #inputs:
-   # command: build
-    #projects: '**/*.csproj'
-    #arguments: '--configuration $(buildConfiguration)' # Update this to match your need
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: test
+        projects: '**/*UnitTestBMI/*.csproj'
+        arguments: '--configuration $(buildConfiguration)'
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: test
-    projects: '**/*UnitTestBMI/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: test
+        projects: '**/*UnitTestBMI/*.csproj'
+        arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: test
-    projects: '**/*UnitTestBMI/*.csproj'
-    arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
-
-- task: DotNetCoreCLI@2
-  displayName: 'Publish the project - $(buildConfiguration)'
-  inputs:
-    command: 'publish'
-    projects: '**/*.csproj'
-    publishWebProjects: false
-    arguments: '--no-build --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/$(buildConfiguration)'
-    zipAfterPublish: true
+    - task: DotNetCoreCLI@2
+      displayName: 'Publish the project - $(buildConfiguration)'
+      inputs:
+        command: 'publish'
+        projects: '**/*.csproj'
+        publishWebProjects: false
+        arguments: '--no-build --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/$(buildConfiguration)'
+        zipAfterPublish: true
 
 # do this after you've built your app, near the end of your pipeline in most cases
 # for example, you do this before you deploy to an Azure web app on Windows
-- task: DotNetCoreCLI@2
-  inputs:
-    command: publish
-    publishWebProjects: True
-    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-    zipAfterPublish: True
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: publish
+        publishWebProjects: True
+        arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+        zipAfterPublish: True
 
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: drop'
-  condition: succeeded()
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact: drop'
+      condition: succeeded()
 
